@@ -153,7 +153,7 @@ constructor(
             remainingTvResults.forEach { weekTvShows.addAll(it.items) }
           }
 
-          updateTabContent(tab)
+//          updateTabContent(tab)
           return@launch
         }
 

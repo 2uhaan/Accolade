@@ -8,9 +8,11 @@ object SearchMapper {
 
   fun mapSearchResults(dtos: List<SearchResultDto>): List<SearchResult> {
     return dtos
-        .filter { it.mediaType == "movie" || it.mediaType == "tv" } // Filter out people
+        .filter {
+          it.mediaType == "movie" || it.mediaType == "tv" || it.mediaType == "person"
+        } // Include people
         .map { mapSearchResult(it) }
-        .sortedByDescending { it.popularity } // ADD THIS - Sort by popularity (highest first)
+        .sortedByDescending { it.popularity }
   }
 
   private fun mapSearchResult(dto: SearchResultDto): SearchResult {
@@ -19,12 +21,14 @@ object SearchMapper {
         when (dto.mediaType) {
           "movie" -> dto.releaseDate?.take(4) ?: "N/A"
           "tv" -> dto.firstAirDate?.take(4) ?: "N/A"
+          "person" -> "" // No year for people
           else -> "N/A"
         }
     val mediaType =
         when (dto.mediaType) {
           "movie" -> MediaType.MOVIE
           "tv" -> MediaType.TV_SHOW
+          "person" -> MediaType.PERSON
           else -> MediaType.MOVIE
         }
 
@@ -33,7 +37,7 @@ object SearchMapper {
         title = title,
         year = year,
         mediaType = mediaType,
-        popularity = dto.popularity, // ADD THIS
+        popularity = dto.popularity,
     )
   }
 }

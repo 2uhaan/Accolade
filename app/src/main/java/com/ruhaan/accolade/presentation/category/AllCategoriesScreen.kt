@@ -147,7 +147,7 @@ private fun getAllGenres(): List<Genre> {
       Genre(16, "Animation"),
       Genre(35, "Comedy"),
       Genre(80, "Crime"),
-      Genre(99, "Documentary"),
+      Genre(99, "Docu"),
       Genre(18, "Drama"),
       Genre(10751, "Family"),
       Genre(14, "Fantasy"),

@@ -141,7 +141,15 @@ fun SearchScreen(
             FloatingResultsCard(
                 results = state.results,
                 onResultClick = { result ->
-                  navController.navigate("detail/${result.id}/${result.mediaType.name}")
+                  when (result.mediaType) {
+                    MediaType.MOVIE,
+                    MediaType.TV_SHOW -> {
+                      navController.navigate("detail/${result.id}/${result.mediaType.name}")
+                    }
+                    MediaType.PERSON -> {
+                      navController.navigate("filmography/${result.id}")
+                    }
+                  }
                   onSearchClose()
                 },
             )
@@ -283,7 +291,7 @@ fun FloatingSearchBarWithPulse(
           modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
           placeholder = {
             Text(
-                text = "Search movies & TV shows...",
+                text = "Search",
                 color = PlaceholderColor,
                 style = MaterialTheme.typography.bodyLarge,
             )
@@ -384,29 +392,39 @@ private fun SearchResultRow(result: SearchResult, onClick: () -> Unit) {
           fontWeight = FontWeight.SemiBold,
           color = MaterialTheme.colorScheme.onSurface,
       )
-      Text(
-          text = result.year,
-          style = MaterialTheme.typography.bodySmall,
-          color = SubtextColor,
-      )
+      // Only show year if it's not empty (persons won't have a year)
+      if (result.year.isNotEmpty()) {
+        Text(
+            text = result.year,
+            style = MaterialTheme.typography.bodySmall,
+            color = SubtextColor,
+        )
+      }
     }
 
     // Media type badge
+    val baseColor =
+        when (result.mediaType) {
+          MediaType.MOVIE -> Color(0xFF1976D2)
+          MediaType.TV_SHOW -> Color(0xFF388E3C)
+          MediaType.PERSON -> Color(0xFFF57C00)
+        }
+
     Surface(
         shape = RoundedCornerShape(8.dp),
-        color =
-            if (result.mediaType == MediaType.MOVIE)
-                MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
-            else MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
+        color = baseColor.copy(alpha = 0.1f),
     ) {
       Text(
-          text = if (result.mediaType == MediaType.MOVIE) "Movie" else "TV",
+          text =
+              when (result.mediaType) {
+                MediaType.MOVIE -> "Movie"
+                MediaType.TV_SHOW -> "TV"
+                MediaType.PERSON -> "PERSON"
+              },
           modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
           style = MaterialTheme.typography.labelSmall,
           fontWeight = FontWeight.Medium,
-          color =
-              if (result.mediaType == MediaType.MOVIE) MaterialTheme.colorScheme.primary
-              else MaterialTheme.colorScheme.secondary,
+          color = baseColor,
       )
     }
   }
@@ -479,7 +497,7 @@ private fun InitialHint() {
       contentAlignment = Alignment.Center,
   ) {
     Text(
-        text = "Start typing to search movies & TV shows",
+        text = "Search movies, shows and artist",
         style = MaterialTheme.typography.bodySmall,
         color = PlaceholderColor,
     )

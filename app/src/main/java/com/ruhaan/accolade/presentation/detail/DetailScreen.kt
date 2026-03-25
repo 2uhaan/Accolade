@@ -65,9 +65,13 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
@@ -108,11 +112,14 @@ fun DetailScreen(
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = Color.Black,
+                    tint = Color.White,
                 )
               }
             },
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
+            colors =
+                TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                ),
         )
       }
   ) { paddingValues ->
@@ -167,7 +174,7 @@ private fun DetailContent(
   val scrollState = rememberScrollState()
 
   Column(
-      modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(bottom = 108.dp),
+      modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(bottom = 55.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
   ) {
     // ── 1. Banner + Trailer overlay ──────────────────────────────
@@ -344,15 +351,6 @@ private fun BannerWithTrailer(
                 .shadow(16.dp, RoundedCornerShape(14.dp))
                 .clip(RoundedCornerShape(14.dp)),
         contentScale = ContentScale.Crop,
-        loading = {
-          Box(
-              modifier =
-                  Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceVariant),
-              contentAlignment = Alignment.Center,
-          ) {
-            CircularProgressIndicator()
-          }
-        },
         error = { ErrorPlaceholder(movieTitle = movieTitle) },
     )
   }
@@ -521,15 +519,15 @@ private fun CastCrewCards(
       horizontalArrangement = Arrangement.spacedBy(14.dp),
   ) {
     CastCrewSquareCard(
-        label = "Cast",
-        iconResId = R.drawable.ic_cast,
-        onClick = onCastClick,
-        modifier = Modifier.weight(1f),
-    )
-    CastCrewSquareCard(
         label = "Crew",
         iconResId = R.drawable.ic_crew,
         onClick = onCrewClick,
+        modifier = Modifier.weight(1f),
+    )
+    CastCrewSquareCard(
+        label = "Cast",
+        iconResId = R.drawable.ic_cast,
+        onClick = onCastClick,
         modifier = Modifier.weight(1f),
     )
   }
@@ -787,7 +785,7 @@ private fun ReviewCard(review: Review) {
       Spacer(modifier = Modifier.height(10.dp))
 
       Text(
-          text = review.content,
+          text = parseMarkdown(review.content),
           style = MaterialTheme.typography.bodySmall,
           color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
           lineHeight = 20.sp,
@@ -807,6 +805,54 @@ private fun ReviewCard(review: Review) {
       }
     }
   }
+}
+
+fun parseMarkdown(input: String): AnnotatedString {
+  val builder = AnnotatedString.Builder()
+  var i = 0
+
+  while (i < input.length) {
+
+    // **_bold + italic_**
+    if (i + 3 < input.length && input.startsWith("**_", i)) {
+      val end = input.indexOf("_**", i + 3)
+      if (end != -1) {
+        val text = input.substring(i + 3, end)
+        builder.withStyle(SpanStyle(fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)) {
+          append(text)
+        }
+        i = end + 3
+        continue
+      }
+    }
+
+    // **bold**
+    if (i + 1 < input.length && input.startsWith("**", i)) {
+      val end = input.indexOf("**", i + 2)
+      if (end != -1) {
+        val text = input.substring(i + 2, end)
+        builder.withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append(text) }
+        i = end + 2
+        continue
+      }
+    }
+
+    // _italic_
+    if (input[i] == '_') {
+      val end = input.indexOf("_", i + 1)
+      if (end != -1) {
+        val text = input.substring(i + 1, end)
+        builder.withStyle(SpanStyle(fontStyle = FontStyle.Italic)) { append(text) }
+        i = end + 1
+        continue
+      }
+    }
+
+    builder.append(input[i])
+    i++
+  }
+
+  return builder.toAnnotatedString()
 }
 
 // ────────────────────────────────────────────────────────────────────────────

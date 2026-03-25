@@ -94,7 +94,7 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit, modifier: Modifier = 
               }
               .background(color = backgroundColor, shape = RoundedCornerShape(12.dp))
               .clickable(interactionSource = interactionSource, indication = null) {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                haptic.performHapticFeedback(HapticFeedbackType.KeyboardTap)
                 onMovieClick(movie)
               }
               .padding(8.dp)
