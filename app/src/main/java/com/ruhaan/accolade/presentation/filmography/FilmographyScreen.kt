@@ -231,7 +231,17 @@ private fun PersonHeader(personState: PersonUiState) {
                   )
                   Spacer(modifier = Modifier.height(4.dp))
                   Text(
-                      text = person.birthday,
+                      text =
+                          person.birthday.let {
+                            try {
+                              java.time.LocalDate.parse(it)
+                                  .format(
+                                      java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy")
+                                  )
+                            } catch (_: Exception) {
+                              it
+                            }
+                          } ?: "",
                       style = MaterialTheme.typography.bodyMedium,
                       color = MaterialTheme.colorScheme.onBackground,
                   )
@@ -259,8 +269,11 @@ private fun PersonHeader(personState: PersonUiState) {
           }
 
           // Biography
+          var isOverflowing by remember { mutableStateOf(false) }
+
           if (hasBio) {
             Spacer(modifier = Modifier.height(20.dp))
+
             Text(
                 text = "Biography",
                 style = MaterialTheme.typography.titleMedium,
@@ -268,7 +281,9 @@ private fun PersonHeader(personState: PersonUiState) {
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 0.5.sp,
             )
+
             Spacer(modifier = Modifier.height(6.dp))
+
             Text(
                 text = person.biography,
                 style = MaterialTheme.typography.bodyMedium,
@@ -277,15 +292,25 @@ private fun PersonHeader(personState: PersonUiState) {
                 maxLines = if (bioExpanded) Int.MAX_VALUE else 3,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
+                onTextLayout = { result ->
+                  // Only update when collapsed
+                  if (!bioExpanded) {
+                    isOverflowing = result.hasVisualOverflow
+                  }
+                },
             )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = if (bioExpanded) "Show less" else "Read more",
-                style = MaterialTheme.typography.labelMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable { bioExpanded = !bioExpanded },
-            )
+
+            if (isOverflowing) {
+              Spacer(modifier = Modifier.height(4.dp))
+
+              Text(
+                  text = if (bioExpanded) "Show less" else "Read more",
+                  style = MaterialTheme.typography.labelMedium,
+                  fontWeight = FontWeight.Bold,
+                  color = MaterialTheme.colorScheme.primary,
+                  modifier = Modifier.clickable { bioExpanded = !bioExpanded },
+              )
+            }
           }
 
           Spacer(modifier = Modifier.height(20.dp))

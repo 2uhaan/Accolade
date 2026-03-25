@@ -39,9 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
@@ -199,7 +197,6 @@ private fun BottomNavIcon(
     currentRoute: String?,
     onClick: () -> Unit,
 ) {
-  val haptic = LocalHapticFeedback.current
 
   val scale by
       animateFloatAsState(
@@ -224,10 +221,7 @@ private fun BottomNavIcon(
           Modifier.size(56.dp)
               .clip(CircleShape)
               .clickable(
-                  onClick = {
-                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    onClick()
-                  },
+                  onClick = { onClick() },
                   indication =
                       ripple(
                           bounded = false,

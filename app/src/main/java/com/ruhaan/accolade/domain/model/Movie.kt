@@ -10,6 +10,7 @@ data class Movie(
 )
 
 enum class MediaType {
-    MOVIE,
-    TV_SHOW
+  MOVIE,
+  TV_SHOW,
+  PERSON,
 }
