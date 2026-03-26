@@ -1,6 +1,6 @@
 # 🎬 Accolade
 
-> a really pretty looking TMDB Client (made by and for cinephiles)
+a really pretty looking TMDB Client (made by & for Cinephiles)
 
 <div align="center">
   
@@ -12,9 +12,8 @@
 ## ✨ Features
 
 - 🔍 **Discover** trending movies and TV shows
-- ⭐ **Browse** browse content by categories
+- ⭐ **Browse** browse content by categories 
 - 🎯 **Search** for your favourite content
-- 📱 **Beautiful UI** with smooth animations
 
 ## 📸 Screenshots
 
