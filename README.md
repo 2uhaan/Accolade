@@ -21,8 +21,10 @@
 <!-- Add your screenshots here -->
 <p align="center">
   <img src="Screenshots/home.png" width="250" />
+  <img src="Screenshots/schedule.png" width="250" />
   <img src="Screenshots/detail.png" width="250" />
   <img src="Screenshots/cast.png" width="250" />
+  <img src="Screenshots/filmography.png" width="250" />
 </p>
 
 ## 🚀 Download
