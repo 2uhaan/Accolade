@@ -12,8 +12,8 @@ a really pretty looking TMDB Client (made by & for Cinephiles)
 ## ✨ Features
 
 - 🔍 **Discover** trending movies and TV shows
-- ⭐ **Browse** browse content by categories 
-- 🎯 **Search** for your favourite content
+- ⭐ **Browse** content by categories 
+- 🎯 **Search** for your favourite content or artist
 
 ## 📸 Screenshots
 
