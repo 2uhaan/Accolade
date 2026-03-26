@@ -39,7 +39,7 @@
 
 1. Clone the repo
 2. Get your API key from [TMDB](https://www.themoviedb.org/settings/api)
-3. Add your key to `local.properties`:
+3. Add your key to `build.gradle.kts`:
 ```
    TMDB_API_KEY=your_api_key_here
 ```
