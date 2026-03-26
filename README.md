@@ -20,9 +20,9 @@
 
 <!-- Add your screenshots here -->
 <p align="center">
-  <img src="screenshots/home.png" width="250" />
-  <img src="screenshots/details.png" width="250" />
-  <img src="screenshots/search.png" width="250" />
+  <img src="Screenshots/home.png" width="250" />
+  <img src="screenshots/detail.png" width="250" />
+  <img src="screenshots/cast.png" width="250" />
 </p>
 
 ## 🚀 Download
