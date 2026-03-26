@@ -27,7 +27,7 @@
 
 ## 🚀 Download
 
-[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge&logo=android)](sha256:328933a4fc66c73990ccf413a5fe3c2923a8efc61cce9cdd29c41e245c9824e3)
+[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/2uhaan/accolade/releases/latest)
 
 ## 🛠️ Built With
 
