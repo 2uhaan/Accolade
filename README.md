@@ -1,6 +1,6 @@
 # 🎬 Accolade
 
-> Your personal movie companion powered by TMDB
+> a really pretty looking TMDB Client (made by and for cinephiles)
 
 <div align="center">
   
@@ -12,10 +12,9 @@
 ## ✨ Features
 
 - 🔍 **Discover** trending movies and TV shows
-- ⭐ **Browse** top-rated and popular content
-- 🎯 **Search** for your favorite films
+- ⭐ **Browse** browse content by categories
+- 🎯 **Search** for your favourite content
 - 📱 **Beautiful UI** with smooth animations
-- 🌙 **Dark mode** support
 
 ## 📸 Screenshots
 
@@ -28,7 +27,7 @@
 
 ## 🚀 Download
 
-[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/YOUR_USERNAME/accolade/releases/latest)
+[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/2uhaan/accolade/releases/latest)
 
 ## 🛠️ Built With
 
