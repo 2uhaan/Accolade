@@ -22,7 +22,7 @@ android {
     buildConfigField(
         "String",
         "TMDB_API_KEY",
-        "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZGY5OGFjNGRlODM2MzJiODE1NDI2MjBiNWVhMTgwNCIsIm5iZiI6MTc1MzUxNjUyMi4zMjgsInN1YiI6IjY4ODQ4OWVhODA3YWJkNzU4M2Q5YTdmNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6Aqi0KanBeUBuEIxkI3UHIu_0KHh3VLbmrAeempn34w\"",
+        "your_new_key_here",
     )
   }
 
